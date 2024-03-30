@@ -17,8 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (preg_match('/\d/', $name)) {
             $_SESSION['form_data'] = $_POST;
-            // header("Location: index.php");
-            echo 1;
             exit();
         }
         else {
@@ -27,16 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         if ($result->num_rows > 0) {
             $_SESSION['form_data'] = $_POST;
-            // header("Location: index.php");
-            echo 2;
             exit();
         }
         else {
             $email = $_POST['email'];
             if (!preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $email)) {
                 $_SESSION['form_data'] = $_POST;
-                // header("Location: index.php");
-                echo 3;
                 exit();
             }
             else {
@@ -46,26 +40,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "(?!.*(.).*\\1)" . 
                 "(?=.*\\W.*\\W)" . 
                 "(?=.*" . preg_quote($currentMonth) . ")". 
-                "(?=.*[a-zA-Z])" . // Требование для английских букв
-                "(?=.*[а-яА-Я])" . // Требование для русских букв
-                "(?=.*[^\w\s])" .  // Требование для любого символа, кроме букв и цифр
-                "(?!.*\\W{3,})/i"; // Добавлен флаг i для регистронезависимости
+                "(?=.*[a-zA-Z])" .
+                "(?=.*[а-яА-Я])" . 
+                "(?=.*[^\w\s])" . 
+                "(?!.*\\W{3,})/i"; 
 
 
 
                                 
                 if (!preg_match($passwordRegex, $password)) {
                     $_SESSION['form_data'] = $_POST;
-                    // header("Location: index.php");
-                    echo $password;
                     exit();
                 }
                 else {
 
                     if ($_POST['password'] !== $_POST['password_c']) {
                         $_SESSION['form_data'] = $_POST;
-                        // header("Location: index.php");
-                        echo 5;
+                    
                         exit();
                     }
                     else {
@@ -76,8 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         
                         if ($dateOfBirth > $currentDate || $dateOfBirth < $minDate) {
                             $_SESSION['form_data'] = $_POST;
-                            // header("Location: index.php");
-                            echo 6;
+                          
                             exit();
                         }
                         else {
@@ -88,22 +78,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             if (strlen($imageName) > 15) {
                                 $_SESSION['form_data'] = $_POST;
-                                // header("Location: index.php");
-                                echo 7;
+                              
                                 exit();
                             }
                             else {
                                 if ($imageType !== 'image/png') {
                                     $_SESSION['form_data'] = $_POST;
-                                    // header("Location: index.php");
-                                    echo 8;
+                                  
                                     exit();
                                 }
                                 else {
                                     if ($imageSize < 1024 || $imageSize > 1024 * 1024 * 10) {
                                         $_SESSION['form_data'] = $_POST;
-                                        // header("Location: index.php");
-                                        echo 9;
+                                       
                                         exit();
                                     }
                                     else {
@@ -151,15 +138,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else {
         $_SESSION['form_data'] = $_POST;
-        // header("Location: index.php");
-        echo 10;
+       
         exit();
     }
 }
 else {
     $_SESSION['form_data'] = $_POST;
-    // header("Location: index.php");
-    echo 11;
+   
     exit();
 }
 ?>
